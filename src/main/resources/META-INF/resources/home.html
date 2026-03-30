@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUB-WOW</title>
+
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Markdown & Math Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+
+    <!-- Shared Infrastructure -->
+    <script src="layout.js"></script>
+    <script src="md-engine.js"></script>
+</head>
+
+<body>
+    <!-- Shared Sidebar (Injected by Layout.js) -->
+    <div id="sidebar-wrapper"></div>
+
+    <main class="main-content">
+        <!-- Reusable Hero Section -->
+        <div id="hero-wrapper"></div>
+
+        <div class="content-container" id="app-root">
+            <!-- Content rendered by MdEngine -->
+        </div>
+    </main>
+
+    <script>
+        // CLEANED CONTENT: Removed top-level Logo and Title as they are now in the Hero
+        const ORIGINAL_MANIFESTO = `## What is *this*?
+hub-WOW is a community of people who are passionate about memes, science, politics, philosophy, hardware, programming, and much more. Our goal is to **spark the inner potential available in everyone and direct it towards making a better world** through meaningful discussions, sharing knowledge, and inspiring others.
+
+## Long-Term Vision
+* Build a **global network of thinkers, revolutionaries, and doers**.
+* Launch collaborative **projects that have real-world impact**.
+* Inspire individuals to **take charge of their potential** and drive positive change.
+* Develop **educational resources, workshops, and events** to empower everyone, everywhere.
+
+## Our Mission
+* **Awaken** the mind, body, and soul and channelise it towards a purpose.
+* **Connect** people with interests and expertise, to form a uniques space, where ideas come together and form a vision.
+* **Ideate** and discuss about various fields, to build a mental compass of ethics to navigate through life.
+* **Innovate** by encouraging creative solutions and open discussions, without any judgement or censorship.
+* **Contribute** by sharing your knowledge, projects, and ideas, and help others grow too.
+
+## Works (maybe in progress)
+* [Noymosini](https://github.com/hub-WOW/Noymosini): A local AI Model Manager extending LlamaCPP to manage AI Models.
+* [Simeosis](https://github.com/hub-WOW/Simeosis): A completely private, cryptographically safe, fast, notes and journalling app.
+* [Kouventa](https://github.com/hub-WOW/Kouventa): A private, cryptographically safe, transparent, and secure communication platform with intuitive UI.
+* [hub-WOW Project](https://github.com/hub-WOW/hub-WOW): The orchestrator of all the services that hub-WOW provides for everyone at the cost of nothing.
+
+## Community Values
+* **Ethics** - Nothing is worth without a strong mind. Morals limit you physically, but they teach you mental restraint. Instead of falling to primal senses and attractions of greed, lust, anger, jealousy, and hatred, and accepting "free" corporate gunk, we build a free transparent system.
+* **Respect & Empathy** – Every opinion matters; every member deserves a chance to express *their opinion* with dignity and freedom.
+* **Curiosity & Growth** – Always question, break mental barriers and stigmas, learn, progress, act and evolve.
+* **Collaboration & Support** – Success matters only when you leave a mark of excellent legacy on this world, and that is only possible with collaboration and support.
+* **Integrity & Accountability** – Take ownership of your actions, sufferings, stupidity, biases, limitations and try to continuously out manuevre them.
+* **Fun & Creativity** – Having a purpose is more important than fulfilling it. Striving towards a goal is what matters. It is always fun when you make it, but it is a side-effect of all your effort.
+
+## Core Philosophy & Economics
+* **Untapped Potential** – We deeply believe that everyone has unimaginable potential, but they simply don't take action. Society lacks the critical self-awareness needed to truly unlock its own capabilities.
+* **Balanced Capitalism** – We believe in capitalism as a tool to achieve a balanced socialist society where everyone feels like contributing. A society where capitalism is good, fostering innovation rather than exploitation.
+* **Radical Transparency** – Companies must be fully transparent (exceptions apply for defense). Highly profitable tech companies with 50-60% margins should open their books, capping excess to realistic 6-7% margins.
+* **Open Knowledge & Tech** – Every idea and piece of knowledge must be free to access. We stand firmly against the abuse of patent rights which stifle true technological and scientific revolution.
+* **Critical Nationalism** – We support critical nationalism, not blind patriotism. We support absolute criticism of any kind, questioning everything to ensure constant iterative improvement for the nation and humanity.
+* **Passive Protest & Open Source** – We believe in protesting passively by refusing to use certain products. We encourage keeping all work aggressively open source, licensing everything strictly to protect freedom (e.g., under AGPL GNU v3).
+
+## Why Join?
+* Engage in **open, free, and uncensored discussions** on a variety of topics.
+* Develop an internal sense of responsibility, judgement, and discipline to act towards **excellence**.
+* Share your own **projects, ideas, and discoveries**.
+* Collaborate with a **supportive and motivated people**, who just as you are, yet perform and achieve high.
+* Stay updated on the latest trends and views in **technology, science, history and culture**.
+
+## Get Committed
+1. Join our community platforms on [Discord](https://discord.gg/XYtvzQXyf) and [our website](https://hub-wow.fyi).
+2. Participate in discussions and events.
+3. Share content, projects, and resources.
+4. Help build a community where ideas sprout and mature.
+5. Track and evaluate yourself daily, and progress.
+
+---
+*hub-WOW is more than a community, it’s a movement towards a better, free, open and progressive world.*`;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // ─────────────────────────────────────────────────────────────────
+            // TOP BAR CONFIG — edit this to customise the top navigation for
+            // this page. Children arrays create dropdown menus.
+            // ─────────────────────────────────────────────────────────────────
+            const TOP_BAR_LINKS = [
+                { name: 'Home', url: 'home.html' },
+                {
+                    name: 'Learn', url: '#',
+                    children: [
+                        { name: 'System Design', url: 'system-design.html' },
+                        {
+                            name: 'Documentation', url: '#', children: [
+                                { name: 'Markdown', url: 'markdown.html' }
+                            ]
+                        },
+                    ]
+                }
+            ];
+
+            // Initialize the shared layout — pass topBarLinks to customise the top bar
+            Layout.init({ topBarLinks: TOP_BAR_LINKS });
+
+            // Render Hero
+            Layout.renderHero('hero-wrapper', {
+                logo: 'logo.svg',
+                title: 'hub-WOW',
+                subtitle: 'hub-WOW is a community of people who are passionate about memes, science, politics, philosophy, hardware, programming, and much more.',
+                tagline: 'A movement towards a better, free, open and progressive world.'
+            });
+
+            const root = document.getElementById('app-root');
+            const toc = document.getElementById('sidebar-nav-list');
+
+            // Render Markdown
+            MdEngine.render(ORIGINAL_MANIFESTO, root, toc);
+
+        });
+    </script>
+</body>
+
+</html>
