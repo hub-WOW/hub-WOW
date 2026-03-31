@@ -5,7 +5,7 @@
     <link href = "/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUB-WOW - Demo Template</title>
+    <title>HUB-WOW - Markdown</title>
 
     <!-- External Dependencies (CDN) -->
     <!-- KaTeX: LaTeX Math Support -->
@@ -72,7 +72,7 @@
         ];
 
         // Define your markdown content here
-        const DEMO_CONTENT = `
+        const MARKDOWN_COURSE_CONTENT = `
 # 1. What is *Markdown*?
 ## Introduction
 - Markdown is a simple language, which uses some simple symbols to **format text**
@@ -88,20 +88,20 @@
 ~ Aaron Swartz, co-founder of Reddit and RSS, and a key figure in the early development of Markdown.
 
 # 2. Basic Syntax
-- *Headings*: Use \`#\` for headings. More \`#\` in a row means smaller heading.
-- *Italics*: Use \`*\` or \`_\`.
-- *Bold*: Use \`**\` or \`__\`.
-- *Lists*: Use \`-\` or \`*\`. You can stack them for more indentation.
-- *Links*: Use \`[text](url)\` format for adding hyperlinks.
-- *Quotes*: Use \`>\` at the beginning of a line to create a blockquote. These can be stacked by adding more \`>\` symbols.
-- *Images*: Use \`![alt text](image_url)\` for adding images. The image_url can be a local directory or an external link.
-- *Code*: Use \` \`\`\` \` to start and end a code block.
+- **Headings**: Use \`#\` for headings. More \`#\` in a row means smaller heading.
+- **Italics**: Use \`*\` or \`_\`.
+- **Bold**: Use \`**\` or \`__\`.
+- **Lists**: Use \`-\` or \`*\`. You can stack them for more indentation.
+- **Links**: Use \`[text](url)\` format for adding hyperlinks.
+- **Quotes**: Use \`>\` at the beginning of a line to create a blockquote. These can be stacked by adding more \`>\` symbols.
+- **Images**: Use \`![alt text](image_url)\` for adding images. The image_url can be a local directory or an external link.
+- **Code**: Use \` \`\`\` \` to start and end a code block.
 
 # 3. Advanced Features
-- *Tables*:
+- **Tables**:
   - Create Tables: \`| Column 1 | Column 2\` and \`| --- | --- |\` for the header separator.
   - Table Formatting: Use \`:---\` for left alignment, \`:---:\` for center alignment, and \`---:\` for right alignment of columns.
-- *Task Lists*: Use \`- [ ]\` for an unchecked box and \`- [x]\` for a checked box.
+- **Task Lists**: Use \`- [ ]\` for an unchecked box and \`- [x]\` for a checked box.
 
 # 4. Applications and Use Cases
 - Try out Markdown yourself! Create a new file with .md extension and start writing. You can use any text editor, or even write directly in platforms that support Markdown like GitHub, Reddit, or Discord.
@@ -114,7 +114,8 @@
 
 ## Learning never ends!  
 *The more you learn, the more you realise that you are a fool, and there is an infinite sea of knowledge in front of you.*
-### **We have a course on LaTeX which is a powerful way to add** *math and scientific notation to your documents.* **Check it out [here](latex.html).**
+## LaTeX
+**We have a course on LaTeX which is a powerful way to add** *math and scientific notation to your documents.* **Check it out [here](latex.html).**
 `;
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -125,15 +126,15 @@
             Layout.renderHero('hero-wrapper', {
                 logo: '/resources/logo.svg',
                 title: 'Markdown',
-                subtitle: 'A clean starting point for your next website.',
-                tagline: 'Built with hub-WOW Core Architecture'
+                subtitle: 'Welcome to Markdown at hub-WOW!! Here\'s how we do it. Using buzzwords adding paywalls is very common with such content. It is getting harder day-by-day to get authentic, real, valuable content.',
+                tagline: 'Let\'s get this shit started...'
             });
 
             // 3. Render the Markdown content
             const root = document.getElementById('app-root');
             const toc = document.getElementById('sidebar-nav-list'); // Injected by Layout.init()
 
-            MdEngine.render(DEMO_CONTENT, root, toc);
+            MdEngine.render(MARKDOWN_COURSE_CONTENT, root, toc);
 
         });
     </script>
