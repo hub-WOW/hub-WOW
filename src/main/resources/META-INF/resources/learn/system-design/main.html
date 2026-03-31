@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hub-WOW | System Design</title>
+
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="/Kathisto/styles.css">
+
+    <!-- Markdown & Math Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+
+    <!-- Shared Infrastructure -->
+    <script src="/Kathisto/layout.js"></script>
+    <script src="/Kathisto/md-engine.js"></script>
+</head>
+
+<body>
+    <!-- The sidebar will be injected here by Layout.init() -->
+    <div id="sidebar-wrapper"></div>
+
+    <main class="main-content">
+        <!-- Reusable Hero Section -->
+        <div id="hero-wrapper"></div>
+
+        <div class="content-container" id="content">
+            <!-- Content will be rendered by MdEngine -->
+        </div>
+    </main>
+
+    <script>
+        // CLEANED CONTENT: Removed redundancy (Title/Logo handled by Layout.renderHero)
+        const SYSTEM_DESIGN_CONTENT = `
+# 1. What is System Design?
+
+- Apart from all the complex definition crap; It's just designing systems just as in the name. A system is a place where interactions between stuff happens. So, Designing a system is just, making an environment where things interact in the best way possible.
+- Programming is a nice example of a system:
+    - **Database**: Stores all data, sorts it, and makes it easy to access.
+    - **Backend**: Handles all heavy logic, serves data from the database to the user.
+    - **Functions**: Break the large task into smaller tasks, especially helping to reuse it on multiple places.
+    - **Classes**: Used to sort similar functions together, and create "objects" in memory with unique traits.
+    - **Frontend**: Uses the backend and APIs, to show information in an appealing way to the user.
+    - **API**: A simple way to access functionality from a backend whether designed by you or someone else.
+
+## 1.1 Steps for System Design
+
+- Get an idea for a system. It can be on anything you hate. For example, companies stealing and selling your data, so you make your own app which does the same but privately. Don't go into forking programs as a beginner.
+- Get a pen, paper, and a screen in front of you. Now, do research on what you want to do, and how are you going to implement it.
+- Draw as many drafts of a system. Not doing this step, is the **biggest mistake**, and to refactor the code, will be necessary and impossible at the same time. Changing a function breaks another and you are stuck in a hell of code.
+- Start coding and make it good, readable, extensible. No need for optimisation at first when you are starting from scratch. The thing is you can *edit a function and optimise it, but making a new function that does completely different thing is not possible unless you dedicate a ton of resources*.
+`;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // ─────────────────────────────────────────────────────────────────
+            // TOP BAR CONFIG — edit this to customise the top navigation for
+            // this page. Children arrays create dropdown menus.
+            // ─────────────────────────────────────────────────────────────────
+            const TOP_BAR_LINKS = [
+                { name: 'Home', url: '/home.html' },
+                {
+                    name: 'Learn', url: '/learn/index.html',
+                    children: [
+                        { name: 'System Design', url: '/learn/system-design/main.html' },
+                        { name: 'Cryptography', url: "/learn/system-design/cryptography.html" },
+                        { name: 'Markdown Syntax', url: '/learn/documentation/markdown.html' },
+                        { name: 'Preview Template', url: '/learn/documentation/preview.html' }
+                    ]
+                }
+            ];
+
+            // Initialize the shared layout — pass topBarLinks to customise the top bar
+            Layout.init({ topBarLinks: TOP_BAR_LINKS });
+
+            // Render the Shared Hero Section
+            Layout.renderHero('hero-wrapper', {
+                logo: '/resources/logo.svg',
+                title: 'System Design in Programming',
+                subtitle: 'Welcome to System Design in Programming at WOW!! It is one of the most important aspect of software engineering, to create optimised, fast and scalable codebases.',
+                tagline: 'Let\'s get this shit started...'
+            });
+
+            const root = document.getElementById('content');
+            const navBase = document.getElementById('sidebar-nav-list');
+
+            // Render Markdown
+            MdEngine.render(SYSTEM_DESIGN_CONTENT, root, navBase);
+
+            if (window.hljs) {
+                window.hljs.highlightAll();
+            }
+        });
+    </script>
+</body>
+
+</html>

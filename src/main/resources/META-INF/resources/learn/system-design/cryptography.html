@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link href= "/">
+    <link href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Design - WOW</title>
@@ -50,29 +50,7 @@
     <script>
         // CLEANED CONTENT: Removed redundancy (Title/Logo handled by Layout.renderHero)
         const SYSTEM_DESIGN_CONTENT = `
-# 1. What is System Design?
-
-- Apart from all the complex definition crap; It's just designing systems just as in the name. A system is a place where interactions between stuff happens. So, Designing a system is just, making an environment where things interact in the best way possible.
-- Programming is a nice example of a system:
-    - **Database**: Stores all data, sorts it, and makes it easy to access.
-    - **Backend**: Handles all heavy logic, serves data from the database to the user.
-    - **Functions**: Break the large task into smaller tasks, especially helping to reuse it on multiple places.
-    - **Classes**: Used to sort similar functions together, and create "objects" in memory with unique traits.
-    - **Frontend**: Uses the backend and APIs, to show information in an appealing way to the user.
-    - **API**: A simple way to access functionality from a backend whether designed by you or someone else.
-
-## 1.1 Steps for System Design
-
-- Get an idea for a system. It can be on anything you hate. For example, companies stealing and selling your data, so you make your own app which does the same but privately. Don't go into forking programs as a beginner.
-- Get a pen, paper, and a screen in front of you. Now, do research on what you want to do, and how are you going to implement it.
-- Draw as many drafts of a system. Not doing this step, is the **biggest mistake**, and to refactor the code, will be necessary and impossible at the same time. Changing a function breaks another and you are stuck in a hell of code.
-- Start coding and make it good, readable, extensible. No need for optimisation at first when you are starting from scratch. The thing is you can *edit a function and optimise it, but making a new function that does completely different thing is not possible unless you dedicate a ton of resources*.
-
----
-
-# 2. Cryptography
-
-## 2.1 What is this *cryptography* thing?
+# 1. What is this *cryptography* thing?
 
 - It's just a mathematical way to secure, verify content with **extremely high levels** of entropy (randomness).
 - Modern Cryptography uses usually 192 bits or higher encryption, making it absurdly secure.
@@ -80,11 +58,11 @@
 - What do the *bits* mean? Well, in computer science, we use binary which is base 2. ON or OFF, 1 or 0, True or False. You have 2 choices in a bit, so if you want to find all unique combinations of a 256 digit binary number, you would have $2\\times{2}\\times{2}\\times{2}\\times{}..$. Which will get the number $2^{256}$ or roughly $1.1579\\times{10^{77}}$ which is a number so giant that if you wanted to predict a number from 0, it would take **10 trillion supercomputers each doing 10 trillion number checks per second running for roughly $3.7 \\times 10^{43}$ years, which is $2.7\\times{10^{33}}$ times longer than the age of the universe.** Just to find the number.
 - You don't need to go down into the rabbit hole to learn how this stuff works. Just use it. It is not worth any time to learn this, unless you are going really going to benefit from it.
 
-## 2.2 Technical Details
+# 2. Technical Details
 
 There are 2 types of cryptography you are ever going to need in your life. Encryption and Hashing.
 
-### 2.2.1 Encryption
+## 2.1. Encryption
 Reversible. Basically adding a lock to data using a key, which turns it into random garble, and can only be unlocked by the same or another key.
 
 - **Encryption**: Making normal plaintext into complex code.
@@ -92,11 +70,11 @@ Reversible. Basically adding a lock to data using a key, which turns it into ran
 - **Decryption**: Decoding the complex shit into it's original stuff.
   $Content= \\text{Decrypt}(Ciphertext, Key_\\text{decryption})$
 
-#### 2.2.1.1 Symmetric Encryption
+### 2.1.1. Symmetric Encryption
 - The encryption key is same as decryption key. Just common sense.
 - Most popular algorithm is AES256-GCM. It is 256 bit encryption, with a *128bit GCM tag*. A GCM tag allows for the algorithm to verify whether decryption was successful. It is very fast and can allow multiple encryptions and decryptions per second.
 
-#### 2.2.1.2 Asymmetric Encryption
+### 2.1.2. Asymmetric Encryption
 - The encryption key is not the same as decryption key. This uses *very large prime numbers using RSA.*
 - The encryption key and decryption key are mathematically related. But it is near impossible to derive the other key from a single key due to properties of large prime numbers.
 - Encryption Key has enough information to encrypt the data but not enough to decrypt it. That's why encryption key is known as **public key**, and decryption key is known as **private key**.
@@ -116,17 +94,17 @@ Reversible. Basically adding a lock to data using a key, which turns it into ran
 
 Modern systems also use **Elliptic Curve Cryptography** (e.g., Ed25519) which is very secure.
 
-### 2.2.2 Hashing
+## 2.2. Hashing
 Unreversible. Used to verify if a file has been modified. Doesn't prevent the file to be modified, but tells whether it is authentic or not.
 
 - $code = \\text{hash}(content, key)$
 - There is no unhash function.
 
-#### 2.2.2.1 Fast Hashing
+### 2.2.1. Fast Hashing
 - Not secure, but allows for generating several thousand hashes per second.
 - Used to verify if a file is corrupted or modified (e.g., SHA-256, SHA-512).
 
-#### 2.2.2.2 Slow Hashing
+### 2.2.2. Slow Hashing
 - Very secure because it is slow, taking milliseconds to seconds, preventing brute force.
 - Used for generating secure encryption keys via iterations.
 - **Standard Iterations:**
@@ -136,24 +114,24 @@ Unreversible. Used to verify if a file has been modified. Doesn't prevent the fi
 
 ---
 
-## 2.3 Implementation
+# 3. Implementation
 
 To implement cryptography into a system, remember: **the server NEVER knows what content is put in by the user. It doesn't have any sensitive raw data, no decryption keys, no encryption keys, no plaintext.**
 
-### 2.3.1 Basic System with Encryption
+## 3.1. Basic System with Encryption
 
-#### 2.3.1.1 Client Side Validation
-- **Problem**: Simple passwords can be guessed.
-- **Solution**: Use KDF2 or Argon2 to hash the password into a **master key** (KEK - Key Encrypting Key).
+### 3.1.1. Client Side Validation
+- *Problem*: Simple passwords can be guessed.
+- *Solution*: Use KDF2 or Argon2 to hash the password into a **master key** (KEK - Key Encrypting Key).
 - $masterKey = \\text{Argon2}(\\text{ConstantValue}, \\text{password})$
-- **Problem**: Patterns can be observed easily by an attacker
-- **Solution**: Add a **salt** (random string, e.g., 96 bits) and **iterations** to add extreme randomness.
+- *Problem*: Patterns can be observed easily by an attacker
+- *Solution*: Add a **salt** (random string, e.g., 96 bits) and **iterations** to add extreme randomness.
 - $\\text{hash}(\\text{salt}, \\text{password}, \\text{content}, \\text{iterations}) = \\text{hash}(\\text{salt}, \\dots)$
-- **Safety**: Never reuse the same salt with the same key. All changes should be together in an instant (atomic), to prevent [artial writes, which can lock out users].
+- *Safety*: Never reuse the same salt with the same key. All changes should be together in an instant (atomic), to prevent [artial writes, which can lock out users].
 
-#### 2.3.1.2 Content Encryption
-- **Rule**: Don't encrypt identifiers (userID, timestamp, etc.) to avoid backend complexity.
-- **Nonce**: Use a **Nonce** (Number used once) for every encryption to add diversity.
+### 3.1.2. Content Encryption
+- *Rule*: Don't encrypt identifiers (userID, timestamp, etc.) to avoid backend complexity.
+- *Nonce*: Use a **Nonce** (Number used once) for every encryption to add diversity.
 \`\`\`python
 password = userInput()
 masterSalt = generateSalt()
@@ -169,8 +147,8 @@ ciphertext = encrypt(content, nonce, key)
 safeKey = encrypt(key, masterNonce, masterKey)
 \`\`\`
 
-#### 2.3.1.3 Payload Delivery
-- The plaintext data **ONLY** stays on the client. Only encrypted data goes to the server.
+### 3.1.3. Payload Delivery
+- The plaintext data *ONLY* stays on the client. Only encrypted data goes to the server.
 \`\`\`java
 class EncryptedVariable {
   private final byte[] salt;
@@ -180,17 +158,17 @@ class EncryptedVariable {
 }
 \`\`\`
 
-#### 2.3.1.4 Backend and Database Handling
-- The server stores the payload and allows clients to fetch it by identifiers. The server cannot read the data.
 
-#### 2.3.1.5 Accessing the Content
+### 3.1.4. Backend and Database Handling
+- The server stores the payload and allows clients to fetch it by identifiers. The server cannot read the data.
+### 3.1.5. Accessing the Content
 - The client fetches the payload, decrypts the individual keys using the master key, and then decrypts the content.
 - If the data needs to be sorted, then the server *can not* sort it, and the client has to do it. 
 
-### 2.3.2 Add-ons to the System
-- **Authentication**: authKey can be encrypted to reduce compute. This is generally done in most codebases..
-- **P2P** (Peer to Peer): In case of chatting or similar apps, use asymmetric encryption.
-- **Double Encryption**: Encrypt the entire JSON payload on top for extra safety. Is it needed? No. Why? Because HTTPS has TLS (Transport Layer Security) which does the same thing, but is far more reliable and secure as it uses a mix of asymmetric and symmetric encryption for perfect speed and security.
+### 3.2. Add-ons to the System
+- *Authentication*: authKey can be encrypted to reduce compute. This is generally done in most codebases..
+- *P2P* (Peer to Peer): In case of chatting or similar apps, use asymmetric encryption.
+- *Double Encryption*: Encrypt the entire JSON payload on top for extra safety. Is it needed? No. Why? Because HTTPS has TLS (Transport Layer Security) which does the same thing, but is far more reliable and secure as it uses a mix of asymmetric and symmetric encryption for perfect speed and security.
 `;
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -199,12 +177,13 @@ class EncryptedVariable {
             // this page. Children arrays create dropdown menus.
             // ─────────────────────────────────────────────────────────────────
             const TOP_BAR_LINKS = [
-                { name: 'Home', url: 'home.html' },
+                { name: 'Home', url: '/home.html' },
                 {
-                    name: 'Pages', url: '#',
+                    name: 'Learn', url: '/learn/index.html',
                     children: [
-                        { name: 'System Design', url: 'system-design.html' },
-                        { name: 'Markdown', url: 'markdown.html' }
+                        { name: 'System Design', url: '/learn/system-design/system-design.html' },
+                        { name: 'Markdown Syntax', url: '/learn/documentation/markdown.html' },
+                        { name: 'Preview Template', url: '/learn/documentation/preview.html' }
                     ]
                 }
             ];
@@ -216,7 +195,7 @@ class EncryptedVariable {
             Layout.renderHero('hero-wrapper', {
                 logo: '/resources/logo.svg',
                 title: 'System Design in Programming',
-                subtitle: 'Welcome to System Design in Programming at WOW!! Here\'s how we do it. Using buzzwords adding paywalls is very common with such content. It is getting harder day-by-day to get authentic, real, valuable content.',
+                subtitle: 'Welcome to System Design in Programming at WOW!! It is one of the most important aspect of software engineering, to create optimised, fast and scalable codebases.',
                 tagline: 'Let\'s get this shit started...'
             });
 

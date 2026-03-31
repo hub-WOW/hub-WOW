@@ -53,23 +53,23 @@
 hub-WOW is a community of people who are passionate about memes, science, politics, philosophy, hardware, programming, and much more. Our goal is to **spark the inner potential available in everyone and direct it towards making a better world** through meaningful discussions, sharing knowledge, and inspiring others.
 
 ## Long-Term Vision
-* Build a *global network of thinkers, revolutionaries, and doers*.
-* Launch collaborative *projects that have real-world impact*.
-* Inspire individuals to *take charge of their potential* and drive positive change.
-* Develop *educational resources, workshops, and events* to empower everyone, everywhere.
+- Build a *global network of thinkers, revolutionaries, and doers*.
+- Launch collaborative *projects that have real-world impact*.
+- Inspire individuals to *take charge of their potential* and drive positive change.
+- Develop *educational resources, workshops, and events* to empower everyone, everywhere.
 
 ## Our Mission
-* **Awaken** the mind, body, and soul and channelise it towards a purpose.
-* **Connect** people with interests and expertise, to form a uniques space, where ideas come together and form a vision.
-* **Ideate** and discuss about various fields, to build a mental compass of ethics to navigate through life.
-* **Innovate** by encouraging creative solutions and open discussions, without any judgement or censorship.
-* **Contribute** by sharing your knowledge, projects, and ideas, and help others grow too.
+- **Awaken** the mind, body, and soul and channelise it towards a purpose.
+- **Connect** people with interests and expertise, to form a uniques space, where ideas come together and form a vision.
+- **Ideate** and discuss about various fields, to build a mental compass of ethics to navigate through life.
+- **Innovate** by encouraging creative solutions and open discussions, without any judgement or censorship.
+- **Contribute** by sharing your knowledge, projects, and ideas, and help others grow too.
 
 ## Works (maybe in progress)
-* [Noymosini](https://github.com/hub-WOW/Noymosini): A local AI Model Manager extending LlamaCPP to manage AI Models.
-* [Simeosis](https://github.com/hub-WOW/Simeosis): A completely private, cryptographically safe, fast, notes and journalling app.
-* [Kouventa](https://github.com/hub-WOW/Kouventa): A private, cryptographically safe, transparent, and secure communication platform with intuitive UI.
-* [hub-WOW Project](https://github.com/hub-WOW/hub-WOW): The orchestrator of all the services that hub-WOW provides for everyone at the cost of nothing.
+- [Noymosini](https://github.com/hub-WOW/Noymosini): A local AI Model Manager extending LlamaCPP to manage AI Models.
+- [Simeosis](https://github.com/hub-WOW/Simeosis): A completely private, cryptographically safe, fast, notes and journalling app.
+- [Kouventa](https://github.com/hub-WOW/Kouventa): A private, cryptographically safe, transparent, and secure communication platform with intuitive UI.
+- [hub-WOW Project](https://github.com/hub-WOW/hub-WOW): The orchestrator of all the services that hub-WOW provides for everyone at the cost of nothing.
 
 ## Community Values
 - *Ethics* - Nothing is worth without a strong mind. Morals limit you physically, but they teach you mental restraint. Instead of falling to primal senses and attractions of greed, lust, anger, jealousy, and hatred, and accepting "free" corporate gunk, we build a free transparent system.
@@ -102,7 +102,7 @@ hub-WOW is a community of people who are passionate about memes, science, politi
 5. Track and evaluate yourself daily, and progress.
 
 ---
-*hub-WOW is more than a community, it’s a movement towards a better, free, open and progressive world.*`;
+*hub-WOW is more than a community, it's a movement towards a better, free, open and progressive world.*`;
 
         window.addEventListener('DOMContentLoaded', () => {
             // ─────────────────────────────────────────────────────────────────
@@ -110,14 +110,13 @@ hub-WOW is a community of people who are passionate about memes, science, politi
             // this page. Children arrays create dropdown menus.
             // ─────────────────────────────────────────────────────────────────
             const TOP_BAR_LINKS = [
-                { name: 'Home', url: 'home.html' },
+                { name: 'Home', url: '/home.html' },
                 {
-                    name: 'Learn', url: '#',
+                    name: 'Learn', url: '/learn/index.html',
                     children: [
-                        { name: 'System Design', url: '/learn/system-design.html' },
-                        {
-                            name: 'Documentation', url: '/learn/documentation.html'
-                        },
+                        { name: 'System Design', url: '/learn/system-design/system-design.html' },
+                        { name: 'Markdown Syntax', url: '/learn/documentation/markdown.html' },
+                        { name: 'Preview Template', url: '/learn/documentation/preview.html' }
                     ]
                 }
             ];

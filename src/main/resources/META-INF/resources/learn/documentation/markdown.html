@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <link href = "/">
+    <link href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUB-WOW - Markdown</title>
+    <title>HUB-WOW | Markdown</title>
 
     <!-- External Dependencies (CDN) -->
     <!-- KaTeX: LaTeX Math Support -->
@@ -57,16 +57,13 @@
         // this page. Children arrays create dropdown menus.
         // ─────────────────────────────────────────────────────────────────
         const TOP_BAR_LINKS = [
-            { name: 'Home', url: 'home.html' },
+            { name: 'Home', url: '/home.html' },
             {
-                name: 'Learn', url: '#',
+                name: 'Learn', url: '/learn/index.html',
                 children: [
-                    { name: 'System Design', url: 'system-design.html' },
-                    {
-                        name: 'Documentation', url: '#', children: [
-                            { name: 'Markdown', url: 'markdown.html' }
-                        ]
-                    },
+                    { name: 'System Design', url: '/learn/system-design/system-design.html' },
+                    { name: 'Markdown Syntax', url: '/learn/documentation/markdown.html' },
+                    { name: 'Preview Template', url: '/learn/documentation/preview.html' }
                 ]
             }
         ];
@@ -108,13 +105,10 @@
 - Markdown is a powerful tool for creating well-formatted content without needing to write complex HTML. It allows you to focus on your writing while still producing visually appealing results.
 ## 4.1 hub-WOW
 - hub-WOW has made a Markdown engine named [**Kathisto**](https://github.com/hub-WOW/Kathisto).
-- It converts markdown and LaTeX text into beautiful HTML.
-- This is entire website is made using Kathisto.
-- You can try Kathisto out by wriing your markdown files, and dragging them into the [webpage](/learn/kathisto-preview.html). It will be *rendered for you*.
+- You can try Kathisto out by writing your markdown files, and dragging them into the [webpage](/docs/kathisto/preview.html). It will be *rendered for you*.
 
 ## Learning never ends!  
 *The more you learn, the more you realise that you are a fool, and there is an infinite sea of knowledge in front of you.*
-## LaTeX
 **We have a course on LaTeX which is a powerful way to add** *math and scientific notation to your documents.* **Check it out [here](latex.html).**
 `;
 
@@ -126,7 +120,7 @@
             Layout.renderHero('hero-wrapper', {
                 logo: '/resources/logo.svg',
                 title: 'Markdown',
-                subtitle: 'Welcome to Markdown at hub-WOW!! Here\'s how we do it. Using buzzwords adding paywalls is very common with such content. It is getting harder day-by-day to get authentic, real, valuable content.',
+                subtitle: 'Welcome to Markdown at hub-WOW. It is one of the key elements of the modern-day internet, revolutionizing blogs, chatting, and documentation.',
                 tagline: 'Let\'s get this shit started...'
             });
 

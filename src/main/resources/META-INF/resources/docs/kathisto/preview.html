@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='/'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUB-WOW - Kathisto Preview</title>
+
+    <!-- External Dependencies (CDN) -->
+    <!-- KaTeX: LaTeX Math Support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+    <!-- Markdown-it: Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+    <!-- Highlight.js: Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- DOMPurify: HTML Content Sanitization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Local Styles & Shared Logic -->
+    <link rel="stylesheet" href="/Kathisto/styles.css">
+    <script src="/Kathisto/layout.js"></script>
+    <script src="/Kathisto/md-engine.js"></script>
+</head>
+
+<body>
+    <!-- Sidebar (Injected automatically by Layout.init()) -->
+    <div id="sidebar-wrapper"></div>
+
+    <main class="main-content">
+        <!-- Reusable Hero Section (Injected by Layout.renderHero()) -->
+        <div id="hero-wrapper"></div>
+
+        <!-- Markdown Content Container -->
+        <div class="content-container" id="app-root">
+            <!-- Content rendered by MdEngine will appear here -->
+        </div>
+    </main>
+
+    <script>
+        // ─────────────────────────────────────────────────────────────────
+        // TOP BAR CONFIG — edit this array to customise the top navigation
+        // for THIS page. Use children arrays to create dropdown menus.
+        // You NEVER need to touch layout.js to change this.
+        // ─────────────────────────────────────────────────────────────────
+        const TOP_BAR_LINKS = [
+            { name: 'Home', url: '/home.html' },
+            {
+                name: 'Learn', url: '/learn/index.html',
+                children: [
+                    { name: 'System Design', url: '/learn/system-design/system-design.html' },
+                    { name: 'Markdown Syntax', url: '/learn/documentation/markdown.html' },
+                    { name: 'Preview Template', url: '/learn/documentation/preview.html' }
+                ]
+            }
+        ];
+
+        // ─────────────────────────────────────────────────────────────────
+        // PAGE CONTENT — write your markdown here as an array of strings.
+        // One element per line. This avoids backtick escaping issues that
+        // occur when embedding code fences inside JS template literals.
+        // ─────────────────────────────────────────────────────────────────
+        const PAGE_CONTENT = `
+# What is *this* and **why** is this here?
+- This webpage is meant to demonstrate the utility of Kathisto to generate webpages from markdown files.
+- Kathisto is a library written in Javascript by WOW. It also supports CSS for navigation bars, hero sections, and sidebars.
+- This can be used by beginners to generate effective HTML pages while focusing on writing content, rather than learning to code.
+
+# How to **use** this webpage?
+- You can **drag and drop** a markdown or text file anywhere on this page, or use the file selector below.
+- The file content will be rendered and displayed right here, but the hero section and navigation bar cannot be modified.
+- You can download the HTML file too.
+        `;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. Initialize the shared layout — topBarLinks configures the top nav
+            Layout.init({ topBarLinks: TOP_BAR_LINKS });
+
+            // 2. Render the Hero Section
+            Layout.renderHero('hero-wrapper', {
+                logo: '/resources/logo.svg',
+                title: 'Kathisto Preview',
+                subtitle: 'Kathisto is a free and opensource static markdown-to-webpage engine made using JavaScript.',
+                tagline: 'Let\'s get this shit started..'
+            });
+
+            // 3. Render the Markdown content
+            const root = document.getElementById('app-root');
+            const toc = document.getElementById('sidebar-nav-list'); // Injected by Layout.init()
+            MdEngine.render(PAGE_CONTENT, root, toc);
+
+            // Re-render callback — shared by file input and drag-drop
+            function onFileLoaded(markdownText) {
+                MdEngine.render(markdownText, root, toc);
+                // Re-append controls after re-render clears the root
+                root.appendChild(controls);
+                downloadBtn.disabled = false;
+                downloadBtn.style.opacity = '1';
+                // Store latest markdown for download
+                downloadBtn._lastMarkdown = markdownText;
+            }
+
+            // 4. Controls container (file selector + download button)
+            const controls = document.createElement('div');
+            controls.style.cssText = 'display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: 1.5rem 0;';
+
+            // File selector
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.md,.txt';
+            fileInput.id = 'file-selector';
+            fileInput.style.cssText = 'padding: 0.6rem 0.9rem; border: 1px dashed rgba(255,255,255,0.3); border-radius: 8px; color: inherit; cursor: pointer; flex: 1; min-width: 200px; max-width: 380px; background: transparent;';
+
+            // Download HTML button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = '⬇ Download HTML';
+            downloadBtn.disabled = true;
+            downloadBtn.style.cssText = 'padding: 0.6rem 1.2rem; border-radius: 8px; border: none; background: var(--accent, #7c6af7); color: #fff; font-weight: 600; cursor: pointer; opacity: 0.4; transition: opacity 0.2s;';
+
+            controls.appendChild(fileInput);
+            controls.appendChild(downloadBtn);
+            root.appendChild(controls);
+
+            // 5. Wire up "choose file" handler
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (ev) => onFileLoaded(ev.target.result);
+                reader.readAsText(file);
+            });
+
+            // 6. Wire up drag-and-drop via MdEngine
+            MdEngine.setupDragDrop(onFileLoaded);
+
+            // 7. Download HTML — fetches styles.css and inlines it in a full standalone page
+            downloadBtn.addEventListener('click', async () => {
+                const markdownText = downloadBtn._lastMarkdown;
+                if (!markdownText) return;
+
+                // Fetch the site's own CSS to embed inline
+                let inlineCss = '';
+                try {
+                    const res = await fetch('/Kathisto/styles.css');
+                    inlineCss = await res.text();
+                } catch (e) {
+                    console.warn('Could not fetch styles.css, falling back to minimal styles.', e);
+                    inlineCss = 'body { font-family: sans-serif; background: #0f0f11; color: #e4e4e7; max-width: 860px; margin: 2rem auto; padding: 1.5rem; }';
+                }
+
+                // Embed the markdown source into a self-contained export page
+                const exportHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kathisto Export</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"><\/script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"><\/script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"><\/script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"><\/script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"><\/script>
+    <style>
+${inlineCss}
+        /* Export overrides: no sidebar/topbar, centred content */
+        body { display: block; }
+        .sidebar, .top-bar-wrapper, #sidebar-wrapper { display: none !important; }
+        .main-content { margin-left: 0 !important; padding: 2rem 2.5rem !important; max-width: 860px; margin: 0 auto; }
+        .section-box { opacity: 1 !important; transform: none !important; }
+    <\/style>
+<\/head>
+<body>
+    <div class="main-content">
+        <div class="content-container" id="root"><\/div>
+    <\/div>
+    <script>
+        const engine = window.markdownit({ html: true }).use(window.texmath, { engine: window.katex, delimiters: 'dollars' });
+        const source = ${JSON.stringify(markdownText)};
+        document.getElementById('root').innerHTML = DOMPurify.sanitize(engine.render(source));
+        if (window.hljs) document.querySelectorAll('pre code').forEach(b => hljs.highlightElement(b));
+    <\/script>
+<\/body>
+<\/html>`;
+
+                const blob = new Blob([exportHtml], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'kathisto-export.html';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+</body>
+
+</html>

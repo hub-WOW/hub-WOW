@@ -10,7 +10,7 @@ window.Layout = (() => {
     const SIDEBAR_HTML = `
         <nav class="sidebar">
             <div class="logo-container">
-                <img src="logo.svg" alt="WOW Logo" onerror="this.style.display='none';">
+                <img src="/resources/logo.svg" alt="WOW Logo" onerror="this.style.display='none';">
                 <span class="logo-text">WOW</span>
             </div>
             <div class="nav-title">Navigation</div>
