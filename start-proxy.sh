@@ -11,6 +11,7 @@ nginx -p "$(pwd)/nginx/" -c nginx.conf
 if [ $? -eq 0 ]; then
     echo "✅ Nginx started successfully!"
     echo "You can now view your site in a Web Browser (Chrome, Safari, Firefox) at:"
+    echo " - http://localhost:8090"
     echo " - http://learn.localhost:8090"
     echo " - http://docs.localhost:8090"
 else
